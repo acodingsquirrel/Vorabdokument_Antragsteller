@@ -9,19 +9,20 @@ app.config['SECRET_KEY']='\x8d\x14\xd2 a\xb3Zl\xf2\xe2\xc1\xac\r\xc6\xe2\x15\xc3
 def berater():
    return render_template('berater.html')
 
- @app.route('/pruefeberater', methods=['get', 'post'] )
- def pruefeberater():
-     user=request.form['partneridberater']
-     passwort=request.form['APIKey']
-     token, loginSuccessful = api_client.getPruefen(user, passwort)
-     if loginSuccessful:
-         session['token']= token
-         return redirect('/formular')
-     else:
-         return render_template('berater.html')
+@app.route('/pruefeberater', methods=['get', 'post'] )
+def pruefeberater():
+    partner_id=request.form['partneridberater']
+    api_key=request.form['APIKey']
+    response, successful = api_client.erstelleFall(partner_id, api_key)
+    if successful:
+        print(response)
+        return render_template('bestaetigung.html')
+    else:
+        print("buuuh")
+
 
 @app.route('/formular')
-def bestaetigt():
+def formular():
    return render_template('bex.html', token=session.get('token'))
 
 @app.route('/login')
