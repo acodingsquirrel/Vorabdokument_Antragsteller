@@ -6,13 +6,13 @@ app = Flask(__name__)
 app.config['SECRET_KEY']='\x8d\x14\xd2 a\xb3Zl\xf2\xe2\xc1\xac\r\xc6\xe2\x15\xc3\xeb3\x99\xe7NiR'
 
 @app.route('/berater')
-def login():
+def berater():
    return render_template('berater.html')
 
  @app.route('/pruefeberater', methods=['get', 'post'] )
  def pruefeberater():
-     user=request.form['partnerid']
-     passwort=request.form['passwort']
+     user=request.form['partneridberater']
+     passwort=request.form['APIKey']
      token, loginSuccessful = api_client.getPruefen(user, passwort)
      if loginSuccessful:
          session['token']= token
