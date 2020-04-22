@@ -37,25 +37,26 @@ url = 'https://www.europace2.de/baufiSmart/soap/bex/v13/vorgangAnlegen' #PROD
 
 def makeBody(partner_id, api_key):
     myBody =  '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bex="www.europace2.de/baufiSmart/bex/schema/bex-v13-VorgangAnlegen">'
-    myBody += ' <soapenv:Header>'
-    myBody += '     <bex:LoggingId>'+partner_id+'</bex:LoggingId>'
-    myBody += '     <bex:DatenKontext>ECHTGESCHAEFT</bex:DatenKontext>'
-    myBody += '     <bex:EmpfaengerPartnerId>'+partner_id+'</bex:EmpfaengerPartnerId>'
-    myBody += '     <bex:BearbeiterPartnerId>'+partner_id+'</bex:BearbeiterPartnerId>'
-    myBody += '     <bex:ApiKey>'+api_key+'</bex:ApiKey>'
-    myBody += ' </soapenv:Header>'
-    myBody += ' <soapenv:Body>'
-    myBody += '     <bex:Vorgang xmlns:bex="www.europace2.de/baufiSmart/bex/schema/bex-v13-VorgangAnlegen">'
-    myBody += '         <erfassteDaten>'
-    myBody += '         </erfassteDaten>'
-    myBody += '     </bex:Vorgang>'
-    myBody += ' </soapenv:Body>'
+    myBody += '     <soapenv:Header>'
+    myBody += '         <bex:LoggingId>'+partner_id+'</bex:LoggingId>'
+    myBody += '         <bex:DatenKontext>ECHTGESCHAEFT</bex:DatenKontext>'
+    myBody += '         <bex:EmpfaengerPartnerId>'+partner_id+'</bex:EmpfaengerPartnerId>'
+    myBody += '         <bex:BearbeiterPartnerId>'+partner_id+'</bex:BearbeiterPartnerId>'
+    myBody += '         <bex:ApiKey>'+api_key+'</bex:ApiKey>'
+    myBody += '     </soapenv:Header>'
+    myBody += '     <soapenv:Body>'
+    myBody += '         <bex:Vorgang xmlns:bex="www.europace2.de/baufiSmart/bex/schema/bex-v13-VorgangAnlegen">'
+    myBody += '             <erfassteDaten>'
+    myBody += '             </erfassteDaten>'
+    myBody += '         </bex:Vorgang>'
+    myBody += '     </soapenv:Body>'
     myBody += '</soapenv:Envelope>'
     return myBody
 
 def erstelleFall(partner_id, api_key):
-    #XMLresponse = requests.post(url, data=makeBody(partner_id, api_key))
+    XMLresponse = requests.post(url, data=makeBody(partner_id, api_key))
+    print(XMLresponse.content)
     #response = xmltodict.parse(XMLresponse.content, process_namespaces=True, namespaces={'www.europace2.de/baufiSmart/bex/schema/bex-v13-VorgangAnlegen':None})
-    response = "hurra"
+    response = XMLresponse.content
     successful=True
     return response, successful

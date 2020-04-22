@@ -16,7 +16,7 @@ def pruefeberater():
     response, successful = api_client.erstelleFall(partner_id, api_key)
     if successful:
         print(response)
-        return render_template('bestaetigung.html')
+        return render_template('bestaetigung.html', response=response)
     else:
         print("buuuh")
 
