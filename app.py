@@ -18,7 +18,7 @@ def pruefeberater():
         print(response)
         return render_template('bestaetigung.html', response=response)
     else:
-        print("buuuh")
+        return render_template('berater.html')
 
 
 @app.route('/formular')
